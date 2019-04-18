@@ -3,26 +3,14 @@
 #include "GMLInternals.h"
 #include "SpriteHelper.h"
 #include "DebugTools.h"
+#include "HelperHelper.h"
 
 namespace SpriteHelper {
 	int spriteCount = -1;
 
 	void __InitialSetup() {
 		if (spriteCount != -1) return;
-		// Calculate total number of built-in sprites
-		int sprite_exists = GMLInternals::getFunctionID("sprite_exists");
-		// Call sprite_exists for every id until it returns false
-		for (int i = 0; true; i++) {
-			GMLVar nextID = GMLVar(i);
-			GMLVar* args[] = { &nextID };
-			GMLVar* exists = GMLInternals::callGMLFunction(sprite_exists, 1, args, false);
-			if (!exists->truthy()) {
-				spriteCount = i;
-				delete exists;
-				break;
-			}
-			delete exists;
-		}
+		spriteCount = HelperHelper::countResource(GMLInternals::getFunctionID("sprite_exists"));
 	}
 
 	int getSpriteCount() {

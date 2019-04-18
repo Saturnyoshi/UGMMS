@@ -152,6 +152,7 @@
     <ClInclude Include="DebugTools.h" />
     <ClInclude Include="gml.h" />
     <ClInclude Include="GMLInternals.h" />
+    <ClInclude Include="HelperHelper.h" />
     <ClInclude Include="MemTools.h" />
     <ClInclude Include="SpriteHelper.h" />
     <ClInclude Include="stdafx.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="EventHook.cpp" />
     <ClCompile Include="GMLInternals.cpp" />
+    <ClCompile Include="HelperHelper.cpp" />
     <ClCompile Include="MemTools.cpp" />
     <ClCompile Include="SpriteHelper.cpp" />
     <ClCompile Include="stdafx.cpp">
