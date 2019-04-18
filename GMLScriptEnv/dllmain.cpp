@@ -3,6 +3,7 @@
 #include <windows.h>
 #include "GMLInternals.h"
 #include "SpriteHelper.h"
+#include "RoomHelper.h"
 
 void TestMod_start();
 
@@ -15,6 +16,8 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason, LPVOID lpReserved) {
 		} else {
 
 			SpriteHelper::__InitialSetup();
+			RoomHelper::__InitialSetup();
+
 			SpriteHelper::spriteLoaderMod();
 
 			TestMod_start();
