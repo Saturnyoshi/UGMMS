@@ -13,8 +13,5 @@ namespace GMLInternals {
 	// Arguments are passed by array
 	// Set the noReturn parameter to true if you don't need the function return value, otherwise it must be manually freed
 	GMLVar* callGMLFunction(int functionID, int argCount, GMLVar** args, bool noReturn);
-	// Same as callGMLFunction but the value passed in the last parameter is overwritten with the return value
-	// rather than creating a new rvalue
-	void callGMLFunctionRet(int functionID, int argCount, GMLVar** args, GMLVar* out);
 	//GMLScriptPtr getScriptPtr(int scriptID);
 }

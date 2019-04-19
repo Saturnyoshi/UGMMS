@@ -147,9 +147,6 @@ namespace GMLInternals {
 	}
 
 	GMLVar* GMLRetDummy = new GMLVar();
-	void callGMLFunctionRet(int functionID, int argCount, GMLVar** args, GMLVar* out) {
-		GMLLegacyCall(NULL, NULL, *out, argCount, functionID, args);
-	}
 	GMLVar* callGMLFunction(int functionID, int argCount, GMLVar** args, bool noReturn) {
 		if (GMLLegacyCall == NULL) return NULL;
 		GMLVar* out = noReturn ? GMLRetDummy : new GMLVar();
