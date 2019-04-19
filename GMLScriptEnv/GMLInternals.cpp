@@ -14,7 +14,7 @@ void(*GMLVarGetGlobal)(int variableID, int arrayIndex, GMLVarBase* out);
 bool(*GMLVarSetGlobal)(int variableID, int arrayIndex, GMLVarBase* out);
 bool(*GMLVarGet)(int obj, int variableID, int arrayIndex, GMLVarBase* out);
 bool(*GMLVarSet)(int obj, int variableID, int arrayIndex, GMLVarBase* out);*/
-
+std::string InitGMLHook();
 namespace GMLInternals {
 	// Map of function name -> id
 	std::unordered_map<std::string, int>* functionIDMap = new std::unordered_map<std::string, int>();
@@ -111,6 +111,13 @@ namespace GMLInternals {
 			return readFuncResult;
 		}
 
+		// Hook main GML event handler
+		std::string hookResult = InitGMLHook();
+		if (readFuncResult != "") {
+			GMLLegacyCall = NULL;
+			return hookResult;
+		}
+
 		// Finds function used to get script pointers from id
 		// This function might return some struct, needs more research before it can be used
 		/*std::vector<BYTE> getScrPtrDat{
@@ -126,7 +133,6 @@ namespace GMLInternals {
 			 0xC3
 		};
 		GetScriptAddress = (GMLScriptPtr(*)(int))MemTools::scan(getScrPtrDat);*/
-
 		return "";
 	}
 	

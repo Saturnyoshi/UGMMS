@@ -1,33 +1,27 @@
 #include "stdafx.h"
 #include <vector>
-#include "gml.h"
 #include "GMLInternals.h"
 #include "MemTools.h"
 #include "DebugTools.h"
-#include <unordered_map>
 #include "GMLInternals.h"
 #include <cstdint>
+#include "detours.h"
 
-/*int8_t(*TrueStep)(int32_t, int32_t);
-int8_t EVHook_Step(int32_t a1, int32_t a2) {
-	Bawks("hello");
-	return TrueStep(a1, a2);
-}*/
 
-/*void HookASMFunction(std::string name, std::vector<BYTE> dat, int8_t(*func)(int32_t, int32_t), int copyBytes) {
-	BYTE* addr = MemTools::scan(dat);
-	if (addr == nullptr) {
-		Bawks("Failed to hook " + name);
-		return;
-	}
-	TrueStep = (int8_t(*)(int32_t, int32_t))addr;
-	DetourTransactionBegin();
-	DetourUpdateThread(GetCurrentThread());
-	DetourAttach(&(PVOID&)TrueStep, func);
-	DetourTransactionCommit();
-}*/
+// The original function
+int8_t (*GMLMainEventHandler)(int32_t, int32_t, int32_t, int32_t, int32_t);
+// What we're hooking it with
+int8_t EventHandlerHook(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
+	// Hook code here
+	// Figure out how to tell events apart
 
-/*void HookStepEvent() {
+	// Call the original function
+	return GMLMainEventHandler(a1, a2, a3, a4, a5);
+}
+
+// Setup
+std::string InitGMLHook() {
+	// Search for the function we need
 	std::vector<BYTE> dat{
 		0x83, 0xEC, 0x0C,
 		0x80, 0x3D, '?', '?', '?', '?', 0x00,
@@ -47,13 +41,19 @@ int8_t EVHook_Step(int32_t a1, int32_t a2) {
 		0x8B, 0x7C, 0x24, 0x28,
 		0x8D, 0x5E, 0x40
 	};
+	BYTE* addr = MemTools::scan(dat);
+	if (addr == nullptr) {
+		return "Failed to hook GML event handler.";
+	}
 
-	HookASMFunction("step", dat, EVHook_Step, 10);
-}*/
+	// Store it
+	GMLMainEventHandler = (int8_t(*)(int32_t, int32_t, int32_t, int32_t, int32_t))addr;
 
+	// Attach with Detours
+	DetourTransactionBegin();
+	DetourUpdateThread(GetCurrentThread());
+	DetourAttach(&(PVOID&)GMLMainEventHandler, EventHandlerHook);
+	DetourTransactionCommit();
 
-void InitGMLHooks() {
-
-	//HookStepEvent();
-	
+	return "";
 }

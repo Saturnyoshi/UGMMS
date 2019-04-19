@@ -4,10 +4,15 @@
 #include "GMLInternals.h"
 #include "SpriteHelper.h"
 #include "RoomHelper.h"
+#include "detours.h"
 
 void TestMod_start();
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason, LPVOID lpReserved) {
+	if (DetourIsHelperProcess()) {
+		return TRUE;
+	}
+
 	if (reason == DLL_PROCESS_ATTACH) {
 		std::string result = GMLInternals::__InitialSetup();
 		if (result != "") {
