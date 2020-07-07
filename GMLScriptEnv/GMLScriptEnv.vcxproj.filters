@@ -33,15 +33,6 @@
     <ClInclude Include="DebugTools.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RoomHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HelperHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,18 +51,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EventHook.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestMod.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HelperHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

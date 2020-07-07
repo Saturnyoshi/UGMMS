@@ -6,15 +6,40 @@
 #include "GMLInternals.h"
 #include <cstdint>
 #include "detours.h"
+#include <sstream>
 
+struct GMEventDef {
+    int32_t UNK1;
+    int32_t UNK2;
+    int32_t UNK3;
+    int32_t UNK4;
+    int32_t UNK5;
+    int32_t UNK6;
+    int32_t UNK7;
+    int32_t UNK8;
+    int32_t UNK9;
+    int32_t UNK10;
+    int32_t UNK11;
+    int32_t UNK12;
+    int32_t UNK13;
+    int32_t UNK14;
+    int32_t UNK15;
+    int32_t UNK16;
+    int32_t UNK17;
+    int32_t UNK18;
+    int32_t UNK19;
+    int32_t UNK20;
+    uint8_t event_subtype;
+    uint8_t event_type;
+    // ...
+};
 
 // The original function
-int8_t (*GMLMainEventHandler)(int32_t, int32_t, int32_t, int32_t, int32_t);
+bool (*GMLMainEventHandler)(int32_t, GMEventDef*, int32_t, int32_t, int32_t);
 // What we're hooking it with
-int8_t EventHandlerHook(int32_t a1, int32_t a2, int32_t a3, int32_t a4, int32_t a5) {
-	// Hook code here
+int i = 0;
+bool EventHandlerHook(int32_t a1, GMEventDef* a2, int32_t a3, int32_t a4, int32_t a5) {
 	// Figure out how to tell events apart
-
 	// Call the original function
 	return GMLMainEventHandler(a1, a2, a3, a4, a5);
 }
@@ -47,7 +72,7 @@ std::string InitGMLHook() {
 	}
 
 	// Store it
-	GMLMainEventHandler = (int8_t(*)(int32_t, int32_t, int32_t, int32_t, int32_t))addr;
+	GMLMainEventHandler = (bool(*)(int32_t, GMEventDef*, int32_t, int32_t, int32_t))addr;
 
 	// Attach with Detours
 	DetourTransactionBegin();

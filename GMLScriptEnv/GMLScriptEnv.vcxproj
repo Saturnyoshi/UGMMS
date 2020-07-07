@@ -156,10 +156,7 @@
     <ClInclude Include="DebugTools.h" />
     <ClInclude Include="gml.h" />
     <ClInclude Include="GMLInternals.h" />
-    <ClInclude Include="HelperHelper.h" />
     <ClInclude Include="MemTools.h" />
-    <ClInclude Include="RoomHelper.h" />
-    <ClInclude Include="SpriteHelper.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -168,17 +165,13 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="EventHook.cpp" />
     <ClCompile Include="GMLInternals.cpp" />
-    <ClCompile Include="HelperHelper.cpp" />
     <ClCompile Include="MemTools.cpp" />
-    <ClCompile Include="RoomHelper.cpp" />
-    <ClCompile Include="SpriteHelper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TestMod.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="module.def" />
