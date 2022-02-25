@@ -156,6 +156,7 @@
     <ClInclude Include="DebugTools.h" />
     <ClInclude Include="gml.h" />
     <ClInclude Include="GMLInternals.h" />
+    <ClInclude Include="LuaScriptEnv.h" />
     <ClInclude Include="MemTools.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -163,8 +164,9 @@
   <ItemGroup>
     <ClCompile Include="DebugTools.cpp" />
     <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="EventHook.cpp" />
+    <ClCompile Include="EventHooks.cpp" />
     <ClCompile Include="GMLInternals.cpp" />
+    <ClCompile Include="LuaScriptEnv.cpp" />
     <ClCompile Include="MemTools.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
