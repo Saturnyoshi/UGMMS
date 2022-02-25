@@ -33,3 +33,5 @@
 
 .vs/*
 Debug/
+*.user
+*.filters

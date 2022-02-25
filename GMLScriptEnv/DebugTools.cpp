@@ -2,28 +2,8 @@
 #include <string>
 #include <fstream>
 
-void Bawks(const char* str) {
+void ShowMessage(const char* str) {
 	MessageBoxA(GetActiveWindow(), str, "MsgTitle", MB_OK);
-}
-
-void Bawks(std::string str) {
-	Bawks(str.c_str());
-}
-
-void Bawks(int val) {
-	Bawks(std::to_string(val));
-}
-
-void Bawks(INT64 val) {
-	Bawks(std::to_string(val));
-}
-
-void Bawks(float val) {
-	Bawks(std::to_string(val));
-}
-
-void Bawks(double val) {
-	Bawks(std::to_string(val));
 }
 
 void WriteMemFile(std::string filename, BYTE* data, size_t bytes) {

@@ -3,8 +3,10 @@
 #include <windows.h>
 #include "GMLInternals.h"
 #include "detours.h"
+#include "LuaScriptEnv.h"
 
 static bool hookIsReady = false;
+static bool hookHasRan = false;
 HWND(WINAPI* CreateWindowExW_base)(
 	DWORD dwExStyle, LPCWSTR lpClassName, LPCWSTR lpWindowName, DWORD dwStyle,
 	int X, int Y, int nWidth, int nHeight,
@@ -23,12 +25,17 @@ HWND WINAPI CreateWindowExW_hook(
 		hookIsReady = true;
 		//
 		MessageBoxA(GetActiveWindow(), "You can pick Debug > Attach to Process in VS now!", "GMLScriptEnv", MB_OK | MB_ICONINFORMATION);
-		std::string result = GMLInternals::__InitialSetup();
-		if (result != "") {
-			// Failed to load, for whatever reason
-			MessageBoxA(GetActiveWindow(), ("Failed to initialize YYC hooking DLL:\n" + result).c_str(), "Failed to start YYCHook", MB_OK | MB_ICONERROR);
-            continue;
-		}
+        if (!hookHasRan) {
+            hookHasRan = true;
+		    std::string result = GMLInternals::__InitialSetup();
+		    if (result != "") {
+			    // Failed to load, for whatever reason
+			    MessageBoxA(GetActiveWindow(), ("Failed to initialize YYC hooking DLL:\n" + result).c_str(), "Failed to start YYCHook", MB_OK | MB_ICONERROR);
+                continue;
+		    } else {
+                LuaScriptEnv::startWithDefaultFile("startup.lua");
+            }
+        }
 	} while (false);
 	return CreateWindowExW_base(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam);
 }
@@ -44,6 +51,16 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD  reason, LPVOID lpReserved) {
 		DetourAttach(&(PVOID&)CreateWindowExW_base, CreateWindowExW_hook);
 		if (DetourTransactionCommit() == NO_ERROR) {
 			// OK!
+            if (!hookHasRan) {
+                hookHasRan = true;
+                std::string result = GMLInternals::__InitialSetup();
+                if (result != "") {
+                    // Failed to load, for whatever reason
+                    MessageBoxA(GetActiveWindow(), ("Failed to initialize YYC hooking DLL:\n" + result).c_str(), "Failed to start YYCHook", MB_OK | MB_ICONERROR);
+                } else {
+                    LuaScriptEnv::startWithDefaultFile("startup.lua");
+                }
+            }
 		} else MessageBoxA(NULL, "Failed to detour CreateWindowExW!", "GMLScriptEnv", MB_OK | MB_ICONERROR);
 	}
     return TRUE;
