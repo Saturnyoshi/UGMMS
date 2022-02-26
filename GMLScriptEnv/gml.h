@@ -45,24 +45,40 @@ struct GMLVar {
 	int	type;
 
 	inline void setReal(double value) {
+        freeValue();
 		type = GML_TYPE_REAL;
 		valueReal = value;
 	}
 
 	inline void setInt32(int value) {
+        freeValue();
 		type = GML_TYPE_INT32;
 		valueInt32 = value;
 	}
 
 	inline void setInt64(long long value) {
+        freeValue();
 		type = GML_TYPE_INT64;
 		valueInt64 = value;
 	}
 
 	inline void setBool(bool value) {
+        freeValue();
 		type = GML_TYPE_BOOL;
 		valueReal = value ? 1 : 0;
 	}
+
+    inline void setString(const char* value) {
+        freeValue();
+        type = GML_TYPE_STRING;
+        valueString = new GMLStringRef(_strdup(value));
+    }
+
+    inline void setUndefined() {
+        freeValue();
+        type = GML_TYPE_UNDEFINED;
+        valuePointer = NULL;
+    }
 
 	double getReal() {
 		switch (type) {
@@ -139,7 +155,7 @@ struct GMLVar {
 		return getReal() > 0.5;
 	}
 
-	inline void freeString() {
+	inline void freeValue() {
 		if (type == GML_TYPE_STRING) {
 			valueString->free();
 			delete valueString;

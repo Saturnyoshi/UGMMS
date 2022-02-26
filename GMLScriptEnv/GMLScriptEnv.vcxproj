@@ -95,7 +95,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua51.lib;detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ModuleDefinitionFile>module.def</ModuleDefinitionFile>
     </Link>
   </ItemDefinitionGroup>
@@ -131,6 +131,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>module.def</ModuleDefinitionFile>
+      <AdditionalDependencies>lua51.lib;detours.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,8 +155,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DebugTools.h" />
+    <ClInclude Include="EventHooks.h" />
     <ClInclude Include="gml.h" />
     <ClInclude Include="GMLInternals.h" />
+    <ClInclude Include="GMLuaInterface.h" />
+    <ClInclude Include="libinclude\lauxlib.h" />
+    <ClInclude Include="libinclude\lua.h" />
+    <ClInclude Include="libinclude\lua.hpp" />
+    <ClInclude Include="libinclude\luaconf.h" />
+    <ClInclude Include="libinclude\luajit.h" />
+    <ClInclude Include="libinclude\lualib.h" />
+    <ClInclude Include="luainclude.h" />
     <ClInclude Include="LuaScriptEnv.h" />
     <ClInclude Include="MemTools.h" />
     <ClInclude Include="stdafx.h" />
@@ -166,6 +176,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="EventHooks.cpp" />
     <ClCompile Include="GMLInternals.cpp" />
+    <ClCompile Include="GMLuaInterface.cpp" />
     <ClCompile Include="LuaScriptEnv.cpp" />
     <ClCompile Include="MemTools.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -9,9 +9,10 @@ namespace GMLInternals {
 	// Returns the numerical ID of a built-in function, taking its name
 	// Returns -1 if the function doesn't exist
 	int getFunctionID(std::string name);
+    int getFunctionID(const char* name);
 	// Call a built-in GM function using its numerical ID
 	// Arguments are passed by array
 	// Set the noReturn parameter to true if you don't need the function return value, otherwise it must be manually freed
-	GMLVar* callGMLFunction(int functionID, int argCount, GMLVar** args, bool noReturn);
+	GMLVar* callGMLFunction(int functionID, int argCount, GMLVar** args, GMLVar* return_value);
 	//GMLScriptPtr getScriptPtr(int scriptID);
 }

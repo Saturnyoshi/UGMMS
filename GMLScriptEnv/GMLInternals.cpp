@@ -90,7 +90,7 @@ namespace GMLInternals {
 		// Search for it starting from the end of the first chunk
 		BYTE* legacyCallChunkAddr = MemTools::scanLocal(binLegacyCallSecond, legacyCallAddr + binLegacyCallFirst.size(), 64);
 		if (GMLLegacyCall == nullptr) {
-			// Failed to find second half
+			// Failed to find second halfcallGMLFunction
 			GMLLegacyCall = NULL;
 			return "Malformed CallLegacyFunction";
 		}
@@ -131,13 +131,19 @@ namespace GMLInternals {
 		if (t == functionIDMap->end()) return -1;
 		return t->second;
 	}
+    int getFunctionID(const char* name) {
+        return getFunctionID(std::string(name));
+    }
 
 	GMLVar* GMLRetDummy = new GMLVar();
-	GMLVar* callGMLFunction(int functionID, int argCount, GMLVar** args, bool noReturn) {
+	GMLVar* callGMLFunction(int functionID, int argCount, GMLVar** args, GMLVar* return_value) {
 		if (GMLLegacyCall == NULL) return NULL;
-		GMLVar* out = noReturn ? GMLRetDummy : new GMLVar();
-		GMLLegacyCall(NULL, NULL, *out, argCount, functionID, args);
-		return noReturn ? NULL : out;
+        if (return_value == NULL) {
+            return_value = GMLRetDummy;
+        }
+        return_value->freeValue();
+        GMLLegacyCall(NULL, NULL, *return_value, argCount, functionID, args);
+        return return_value;
 	}
 
 	/*GMLScriptPtr getScriptPtr(int id) {

@@ -7,6 +7,7 @@
 #include <cstdint>
 #include "detours.h"
 #include <cmath>
+#include "EventHooks.h"
 
 // Helper function for installing hooks,
 // returns null if the hook failed, otherwise returns the original hooked method
